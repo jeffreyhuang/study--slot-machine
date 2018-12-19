@@ -1,57 +1,96 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <h2>
+      <span class="badge secondary">SC</span> Random Test
+    </h2>
+
+    <button class="btn-large btn-success" @click="go">Go~</button>
+    <button class="btn-large btn-danger" @click="stop">Stop!</button>
+
+    <div class="item" v-if="currentItem">
+      <div class="item__number">{{ currentItem.body }}</div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  data () {
+    return {
+      continue: true,
+      currentNumber: 1,
+      currentItem: {},
+      items: [
+        { id: 1, body: '1' },
+        { id: 2, body: '2' },
+        { id: 3, body: '3' },
+        { id: 4, body: '4' },
+        { id: 5, body: '5' },
+        { id: 6, body: '6' },
+        { id: 7, body: '7' },
+        { id: 8, body: '8' },
+        { id: 9, body: '9' }
+      ]
+    }
+  },
+  methods: {
+    go () {
+      this.continue = true
+
+      setTimeout(() => {
+        if (this.continue) {
+          let number = this.countNumber()
+
+          this.getItem(number)
+
+          if (number === this.items.length) {
+            this.resetNumber()
+          }
+
+          this.go()
+        }
+      }, 10);
+    },
+    stop () {
+      return this.continue = false
+    },
+    countNumber () {
+      return this.currentNumber++
+    },
+    resetNumber () {
+      return this.currentNumber = 1
+    },
+    getItem (number) {
+      let item = this.items.find(element => {
+        return element.id === number
+      })
+
+      return this.currentItem = item
+    }
+  },
+  mounted () {
+    this.getItem(1)
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style lang="sass">
+body
+  // background-color: red
+h1
+  // color: #ddd
+#app
+  text-align: center
+
+.item
+  margin-top: 30px
+  &__number
+    display: inline-block
+    font-size: 15rem
+    // color: white
+
+button + button
+  margin-left: 20px
+
 </style>
