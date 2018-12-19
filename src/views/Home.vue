@@ -20,8 +20,6 @@ export default {
   components: {
     SlotMachine
   },
-  // computed: {
-  // },
   data () {
     return {
       img () {
@@ -49,5 +47,5 @@ export default {
   text-align: center
 .challenge
   &__row
-    margin-bottom: 0
+    margin-bottom: 0 !important
 </style>
