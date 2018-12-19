@@ -1,13 +1,11 @@
 <template>
-  <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-
-    <div class="row">
-      <div class="md-6 background background__green">
+  <div class="challenge">
+    <div class="row challenge__row">
+      <div class="md-6">
         <SlotMachine :type="'green'" :items="items" />
       </div>
 
-      <div class="md-6 background background__red">
+      <div class="md-6">
         <SlotMachine :type="'red'" :items="items" />
       </div>
     </div>
@@ -49,14 +47,7 @@ export default {
 <style lang="sass">
 #app
   text-align: center
-
-.background
-  height: 100vh
-  &__green
-    background-color: green
-    // background-color: url(require('@/assets/images/background_green.jpg'))
-    // background-color: url(assets/images/background_green.jpg)
-  &__red
-    background-color: red
+.challenge
+  &__row
+    margin-bottom: 0
 </style>
-

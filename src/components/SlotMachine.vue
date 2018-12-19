@@ -1,28 +1,19 @@
 <template>
-  <div class="slot-machine">
+  <div class="slot-machine background" :class="`background__${type}`">
     <div class="slot-machine__btn-group">
       <button class="btn-large btn-success" @click="go">Go~</button>
       <button class="btn-large btn-danger" @click="stop">Stop!</button>
     </div>
 
-    <div class="slot-machine__text child-borders">
-      <div v-if="type === 'green'" class="slot-machine__text-inner border-dashed">
-        Whose :
-      </div>
-
-      <div v-else class="slot-machine__text-inner border-dashed">
-        is the most . . .
+    <div class="child-borders slot-machine__text">
+      <div class="border-dashed slot-machine__text-span">
+        {{ (type === 'green') ? 'Whose :' : 'is the most . . .' }}
       </div>
     </div>
 
-    <div class="row flex-center">
-      <div class="md-12 col">
-        <div class="item" v-if="currentItem">
-          <div>
-            <img :src="image" alt="item" class="no-border">
-          </div>
-          <!-- <div class="item__number">{{ currentItem.body }}</div> -->
-        </div>
+    <div class="row flex-center slot-machine__image">
+      <div class="md-12 col" v-for="(item, index) in items" :key="index" v-show="item.id === currentNumber">
+        <img :src="getImage(item.body)" alt="" class="no-border">
       </div>
     </div>
   </div>
@@ -35,11 +26,6 @@ export default {
     type: String,
     items: Array
   },
-  computed: {
-    image () {
-      return require(`@/assets/images/item_${this.type}_${this.currentNumber}.png`)
-    }
-  },
   data () {
     return {
       continue: true,
@@ -48,6 +34,9 @@ export default {
     }
   },
   methods: {
+    getImage (number) {
+      return require(`@/assets/images/item_${this.type}_${number}.png`)
+    },
     go () {
       this.continue = true
 
@@ -89,18 +78,27 @@ export default {
 </script>
 
 <style lang="sass">
+.background
+  height: 100vh
+  &__green
+    background-color: green
+  &__red
+    background-color: red
+
 .slot-machine
-  margin-top: 50px
+  padding-top: 50px
   &__btn-group
     text-align: center
   &__text
     color: white
     margin-top: 50px
     font-size: 2rem
-  &__text-inner
+  &__text-span
     display: inline-block
     padding: 10px 20px
     border-color: white
+  &__image
+    margin-bottom: 0
 
 .item
   margin-top: 30px
@@ -110,5 +108,4 @@ export default {
 
 button + button
   margin-left: 20px
-
 </style>
