@@ -1,8 +1,9 @@
 <template>
   <div class="slot-machine background" :class="`background__${type}`">
     <div class="slot-machine__btn-group">
-      <button class="btn-large btn-success" @click="go">Go~</button>
-      <button class="btn-large btn-danger" @click="stop">Stop!</button>
+      <button class="btn-large btn-success" @click="go" v-if="!rolling">Go~</button>
+
+      <button class="btn-large btn-danger" @click="stop" v-if="rolling">Stop!</button>
     </div>
 
     <div class="child-borders slot-machine__text">
@@ -28,7 +29,7 @@ export default {
   },
   data () {
     return {
-      continue: true,
+      rolling: false,
       currentNumber: 1,
       currentItem: {}
     }
@@ -38,10 +39,10 @@ export default {
       return require(`@/assets/images/item_${this.type}_${number}.png`)
     },
     go () {
-      this.continue = true
+      this.rolling = true
 
       setTimeout(() => {
-        if (this.continue) {
+        if (this.rolling) {
           let number = this.countNumber()
 
           this.getItem(number)
@@ -55,7 +56,7 @@ export default {
       }, 10);
     },
     stop () {
-      return this.continue = false
+      return this.rolling = false
     },
     countNumber () {
       return this.currentNumber++
@@ -96,7 +97,7 @@ export default {
   &__text-span
     display: inline-block
     padding: 10px 20px
-    border-color: white
+    border-color: white !important
   &__image
     margin-bottom: 0
 
