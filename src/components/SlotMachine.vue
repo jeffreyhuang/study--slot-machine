@@ -8,7 +8,7 @@
 
     <div class="child-borders slot-machine__text">
       <div class="border-dashed slot-machine__text-span">
-        {{ (type === 'green') ? 'Whose :' : 'is the most . . . (est)' }}
+        {{ (type === 'green') ? 'Whose . . .' : 'is the most . . . (est)' }}
       </div>
     </div>
 
