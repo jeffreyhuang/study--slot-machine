@@ -1,7 +1,7 @@
 <template>
   <div class="slot-machine background" :class="`background__${type}`">
     <div class="slot-machine__btn-group">
-      <button class="btn-large btn-success" @click="go" v-if="!rolling">Go~</button>
+      <button class="btn-large btn-success" @click="go" v-if="!rolling">Let's Go~</button>
 
       <button class="btn-large btn-danger" @click="stop" v-if="rolling">Stop!</button>
     </div>
