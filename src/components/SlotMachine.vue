@@ -82,7 +82,7 @@ export default {
 .background
   height: 100vh
   &__green
-    background-color: blue
+    background-color: green
   &__red
     background-color: red
 
